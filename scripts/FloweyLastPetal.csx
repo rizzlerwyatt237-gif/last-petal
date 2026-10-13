@@ -3,7 +3,7 @@ using System.Linq;
 using UndertaleModLib.Models;
 using UndertaleModLib.Compiler;
 
-// LAST PETAL — FLOWEY ADAPTIVE SYSTEM V2
+// LAST PETAL — FLOWEY ADAPTIVE SYSTEM V3
 // Compatibility-first UMT script.
 // Flowey tracks shared Last Petal state across encounters.
 // This is local scripted game logic, not an online AI service.
@@ -52,20 +52,20 @@ if (director == null)
 {
     director = UndertaleCode.CreateEmptyEntry(Data, directorName);
     director.ReplaceGML(@"
-// LAST PETAL AI DIRECTOR V2
-if (!variable_global_exists(\"last_petal_memory\")) global.last_petal_memory = 0;
-if (!variable_global_exists(\"last_petal_kills\")) global.last_petal_kills = 0;
-if (!variable_global_exists(\"last_petal_resets\")) global.last_petal_resets = 0;
-if (!variable_global_exists(\"last_petal_mercy\")) global.last_petal_mercy = 0;
-if (!variable_global_exists(\"last_petal_horror\")) global.last_petal_horror = 0;
-if (!variable_global_exists(\"last_petal_aggression\")) global.last_petal_aggression = 0;
-if (!variable_global_exists(\"last_petal_hunt\")) global.last_petal_hunt = false;
-if (!variable_global_exists(\"last_petal_flowey_knows\")) global.last_petal_flowey_knows = false;
+// LAST PETAL AI DIRECTOR V3
+if (!variable_global_exists(""last_petal_memory"")) global.last_petal_memory = 0;
+if (!variable_global_exists(""last_petal_kills"")) global.last_petal_kills = 0;
+if (!variable_global_exists(""last_petal_resets"")) global.last_petal_resets = 0;
+if (!variable_global_exists(""last_petal_mercy"")) global.last_petal_mercy = 0;
+if (!variable_global_exists(""last_petal_horror"")) global.last_petal_horror = 0;
+if (!variable_global_exists(""last_petal_aggression"")) global.last_petal_aggression = 0;
+if (!variable_global_exists(""last_petal_hunt"")) global.last_petal_hunt = false;
+if (!variable_global_exists(""last_petal_flowey_knows"")) global.last_petal_flowey_knows = false;
 
 // Read common Undertale counters when they exist.
-if (variable_global_exists(\"kills\")) global.last_petal_kills = max(global.last_petal_kills, kills);
-if (variable_global_exists(\"killcount\")) global.last_petal_kills = max(global.last_petal_kills, killcount);
-if (variable_global_exists(\"genocide\") && genocide) global.last_petal_memory = max(global.last_petal_memory, 8);
+if (variable_global_exists(""kills"")) global.last_petal_kills = max(global.last_petal_kills, kills);
+if (variable_global_exists(""killcount"")) global.last_petal_kills = max(global.last_petal_kills, killcount);
+if (variable_global_exists(""genocide"") && genocide) global.last_petal_memory = max(global.last_petal_memory, 8);
 
 // Horror is deliberately bounded so it cannot grow without limit.
 global.last_petal_horror = clamp(
@@ -75,7 +75,7 @@ global.last_petal_horror = clamp(
 global.last_petal_aggression = clamp(global.last_petal_horror, 0, 20);
 global.last_petal_flowey_knows = global.last_petal_horror >= 1;
 global.last_petal_hunt = global.last_petal_aggression >= 5;
-", Data);
+"", Data);
     Data.Code.Add(director);
     Log("Created Last Petal adaptive director.");
 }
@@ -87,10 +87,10 @@ if (pressure == null)
 {
     pressure = UndertaleCode.CreateEmptyEntry(Data, pressureName);
     pressure.ReplaceGML(@"
-// LAST PETAL ENCOUNTER PRESSURE V2
-if (!variable_global_exists(\"last_petal_aggression\")) global.last_petal_aggression = 0;
+// LAST PETAL ENCOUNTER PRESSURE V3
+if (!variable_global_exists(""last_petal_aggression"")) global.last_petal_aggression = 0;
 return clamp(global.last_petal_aggression, 0, 20);
-", Data);
+"", Data);
     Data.Code.Add(pressure);
     Log("Created encounter-pressure helper.");
 }
@@ -101,9 +101,9 @@ string floweyStepName = FindCode("flowey", "Step_0");
 if (floweyCreateName != null)
 {
     var code = Data.Code.ByName(floweyCreateName);
-    QueuePrepend(group, code, "LAST PETAL FLOWEY CREATE V2", @"
-if (!variable_global_exists(\"last_petal_memory\")) global.last_petal_memory = 0;
-if (!variable_global_exists(\"last_petal_horror\")) global.last_petal_horror = 0;
+    QueuePrepend(group, code, "LAST PETAL FLOWEY CREATE V3", @"
+if (!variable_global_exists(""last_petal_memory"")) global.last_petal_memory = 0;
+if (!variable_global_exists(""last_petal_horror"")) global.last_petal_horror = 0;
 global.last_petal_memory = max(global.last_petal_memory, 1);
 global.last_petal_flowey_knows = true;
 last_petal_ai_director();
@@ -115,7 +115,7 @@ last_petal_ai_director();
 if (floweyStepName != null)
 {
     var code = Data.Code.ByName(floweyStepName);
-    QueuePrepend(group, code, "LAST PETAL FLOWEY STEP V2", @"
+    QueuePrepend(group, code, "LAST PETAL FLOWEY STEP V3", @"
 last_petal_ai_director();
 
 // Subtle visual changes at higher memory levels.
@@ -144,7 +144,7 @@ string sansStepName = FindCode("sans", "Step_0");
 if (sansCreateName != null)
 {
     var code = Data.Code.ByName(sansCreateName);
-    QueuePrepend(group, code, "LAST PETAL SANS CREATE V2", @"
+    QueuePrepend(group, code, "LAST PETAL SANS CREATE V3", @"
 last_petal_ai_director();
 last_petal_sans_memory = global.last_petal_horror;
 ");
@@ -155,7 +155,7 @@ last_petal_sans_memory = global.last_petal_horror;
 if (sansStepName != null)
 {
     var code = Data.Code.ByName(sansStepName);
-    QueuePrepend(group, code, "LAST PETAL SANS STEP V2", @"
+    QueuePrepend(group, code, "LAST PETAL SANS STEP V3", @"
 last_petal_ai_director();
 last_petal_sans_pressure = 0;
 if (global.last_petal_hunt)
@@ -168,7 +168,7 @@ if (global.last_petal_hunt)
 group.Import();
 
 ScriptMessage(
-    "LAST PETAL — FLOWEY ADAPTIVE SYSTEM V2\n\n" +
+    "LAST PETAL — FLOWEY ADAPTIVE SYSTEM V3\n\n" +
     "Compatible hooks prepared: " + patched + "\n" +
     "Flowey memory + shared encounter state installed.\n" +
     "Sans can read the same state when compatible events exist.\n" +
