@@ -1,49 +1,48 @@
-# Last Petal
+# Last Petal — UndertaleModTool Mod
 
-**Last Petal** is an original, Undertale-inspired horror fan-game prototype built around a strange flower, changing memories, exploration, dialogue, and choice-driven encounters.
+**Last Petal** is an Undertale horror fan mod distributed as source scripts for **UndertaleModTool**. It is designed to patch a player's own Undertale `data.win` rather than redistribute Undertale's original game files or assets.
 
 > Fan project. Not affiliated with or endorsed by Toby Fox.
 
-## How to Play
+## What is included
 
-1. Download the project or open the game through GitHub Pages.
-2. Open **`index.html`** in your web browser if you're playing it locally.
-3. On the title screen, click **START**.
-4. Read the dialogue and click **CONTINUE** when you are ready.
-5. Explore the room using **WASD** or the **Arrow Keys**.
-6. Walk toward the strange flower to begin the story.
-7. Pay attention to what the flower says and explore the room carefully.
-8. When dialogue is on screen, you can also press **Enter** to continue.
+- Flowey memory / adaptive horror director
+- Flowey remains an ally/protective character rather than an executioner
+- Shared memory state that compatible encounters can read
+- Sans memory and adaptive pressure hooks
+- Horror escalation variables and fourth-wall-style story state hooks
+- Determined Undyne state and visual transformation phases
+- Stronger encounter-pressure state for compatible battle code
+- Optional all-dialogue diagnostic marker script
+- Player movement is deliberately not modified by the included compatibility-first scripts
 
-### Controls
+## Files
 
-- **W / A / S / D** — Move
-- **Arrow Keys** — Move
-- **Enter** — Continue dialogue
-- **CONTINUE** — Continue dialogue with the mouse
+- `scripts/FloweyLastPetal.csx` — installs the adaptive Flowey/Sans memory system.
+- `scripts/HORROR_MASTER_V3.csx` — installs shared horror state and Determined Undyne phases.
+- `scripts/TARGET_DIALOGUE_SYSTEM_ALL.csx` — optional diagnostic that marks English text-data entries with `[HORROR]` so you can verify the real Undertale dialogue system is being edited.
 
-### Goal
+## Install
 
-Explore the strange underground room, find the Last Petal, and discover what it remembers about you. What you do as you explore will eventually affect where the story goes.
+1. Make a backup of your own Undertale `data.win`.
+2. Open your own `data.win` in UndertaleModTool.
+3. Run `scripts/FloweyLastPetal.csx` from the Scripts menu.
+4. Run `scripts/HORROR_MASTER_V3.csx`.
+5. Only run `scripts/TARGET_DIALOGUE_SYSTEM_ALL.csx` if you specifically want the dialogue-system diagnostic marker.
+6. Save the modified game as a new `data.win` and keep your original backup.
+7. Test the mod using your own copy of Undertale.
 
-## Current Prototype
+UndertaleModTool supports opening `data.win` and running C# scripts that modify GameMaker data files. See the official tool documentation for its current version and script behavior.
 
-- Top-down exploration
-- Dialogue system
-- A flower companion who remembers previous actions
-- Simple encounter/battle prototype
-- Persistent story flags
-- Multiple endings based on what the player does
-- No Undertale `data.win`, extracted Undertale assets, or original game files are included
+## Important
 
-## Roadmap
+This repository contains **mod source code**, not Undertale's `data.win`, extracted Undertale sprites, or Undertale's original soundtrack. Those remain with the player and their own game installation.
 
-1. Expand the underground map
-2. Add original characters and portraits
-3. Add more encounters and endings
-4. Add original music and sound effects
-5. Add save slots and chapter progression
-6. Replace prototype art with a full original pixel-art set
+The included scripts are compatibility-first: they do not intentionally replace player movement, rooms, or the player's Step event.
+
+## Raw source
+
+The `.csx` files in `scripts/` are the raw source used by the mod.
 
 ## Credits
 
